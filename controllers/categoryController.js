@@ -36,6 +36,7 @@ module.exports = {
       if (moreCategory) {
         categories.push(moreCategory);
       }
+      res.status(200).json(categories);
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
