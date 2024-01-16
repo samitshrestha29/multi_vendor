@@ -56,29 +56,33 @@ module.exports = {
   },
 
   getRandomFood: async (req, res) => {
-    const code = req.params.code;
     try {
-      let foods;
-      if (code) {
-        foods = await Food.aggregate([
-          { $match: { code: code, isAvailable: true } },
+      let randomFoodList = [];
+
+      if (req.params.code) {
+        randomFoodList = await Food.aggregate([
+          { $match: { code: req.params.code } },
+          { $sample: { size: 3 } },
+          { $project: { __v: 0 } },
+        ]);
+      }
+      if (!randomFoodList.length) {
+        randomFoodList = await Food.aggregate([
           { $sample: { size: 5 } },
           { $project: { __v: 0 } },
         ]);
       }
-      if (foods.length === 0) {
-        foods = await Food.aggregate([
-          { $match: { isAvailable: true } },
-          { $sample: { size: 5 } },
-          { $project: { __v: 0 } },
-        ]);
+      if (randomFoodList.length) {
+        res.status(200).json(randomFoodList);
+      } else {
+        res.status(404).json({ status: false, message: "no food" });
       }
-      res.status(200).json(foods);
     } catch (error) {
-      res.status(500).json({ status: false, message: error.message });
+      res.status(500).json(error);
     }
   },
 
+  //Restaurant Menu
   getFoodByRestaurant: async (req, res) => {
     const id = req.params.id;
     try {
