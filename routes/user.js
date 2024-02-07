@@ -1,10 +1,19 @@
 const router = require("express").Router();
 const userController = require("../controllers/userController");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 router.get("/register", userController.getUser);
 
-router.delete("/", userController.deleteUser);
-router.get("/verify/:otp", userController.verifyAccount);
-router.get("/verify_phone/:phone", userController.verifyPhone);
+router.delete("/", verifyTokenAndAuthorization, userController.deleteUser);
+router.get(
+  "/verify/:otp",
+  verifyTokenAndAuthorization,
+  userController.verifyAccount
+);
+router.get(
+  "/verify_phone/:phone",
+  verifyTokenAndAuthorization,
+  userController.verifyPhone
+);
 
 module.exports = router;
