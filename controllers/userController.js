@@ -1,4 +1,3 @@
-const { request } = require("express");
 const User = require("../models/User");
 
 module.exports = {
@@ -11,6 +10,7 @@ module.exports = {
       res.status(500).json({ status: false, message: error.message });
     }
   },
+
   verifyAccount: async (req, res) => {
     const userOtp = req.params.otp;
     try {
@@ -24,20 +24,20 @@ module.exports = {
         user.verification = true;
         user.otp = "none";
         await user.save();
-        const { password, __v, otp, createdAt, ...oyher } = user._doc;
-        return res.status(200).json({ ...others });
+        const { password, __v, otp, createdAt, ...other } = user._doc;
+        return res.status(200).json({ ...other });
       } else {
         return res
           .status(400)
-          .json({ status: false, message: "opt verification failed" });
+          .json({ status: false, message: "otp verification failed" });
       }
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
   },
+
   verifyPhone: async (req, res) => {
     const phone = req.params.phone;
-    const userOtp = req.params.otp;
     try {
       const user = await User.findById(req.user.id);
       if (!user) {
@@ -45,11 +45,11 @@ module.exports = {
           .status(400)
           .json({ status: false, message: "User not found" });
       }
-      user.phoneVerifcation = true;
+      user.phoneVerification = true;
       user.phone = phone;
       await user.save();
-      const { password, __v, otp, createdAt, ...oyher } = user._doc;
-      return res.status(200).json({ ...others });
+      const { password, __v, otp, createdAt, ...other } = user._doc;
+      return res.status(200).json({ ...other });
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
