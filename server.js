@@ -13,7 +13,8 @@ const RatingRoute = require("./routes/rating");
 // const generateOtp = require("./utils/otp_generator");
 const AuthRoute = require("./routes/auth");
 const UserRoute = require("./routes/user");
-
+const AddressRoute = require("./routes/address");
+const CartRoute = require("./routes/cart");
 mongoose
   .connect(process.env.MONGOURL, {})
   .then(() => console.log("foodly database connected"))
@@ -34,6 +35,8 @@ app.use("/api/category", CategoryRoute);
 app.use("/api/restaurant", RestaurantRoute);
 app.use("/api/foods", FoodRoute);
 app.use("/api/rating", RatingRoute);
+app.use("/api/address", AddressRoute);
+app.use("/api/cart", CartRoute);
 app.listen(port, () =>
   console.log(`Example app listening on port http://localhost:${port}`)
 );

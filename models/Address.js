@@ -5,7 +5,7 @@ const AddressSchema = new mongoose.Schema({
   addressLine1: { type: String, required: true },
   postalCode: { type: String, required: true },
   default: { type: Boolean, default: false },
-  deliveryIntructions: { type: String, required: false },
+  deliveryInstructions: { type: String, required: false }, // Corrected field name
   latitude: { type: Number, required: false },
   longitude: { type: Number, required: false },
 });
