@@ -14,6 +14,7 @@ const RatingRoute = require("./routes/rating");
 const AuthRoute = require("./routes/auth");
 const UserRoute = require("./routes/user");
 const AddressRoute = require("./routes/address");
+const OrderRoute = require("./routes/order");
 const CartRoute = require("./routes/cart");
 mongoose
   .connect(process.env.MONGOURL, {})
@@ -37,6 +38,7 @@ app.use("/api/foods", FoodRoute);
 app.use("/api/rating", RatingRoute);
 app.use("/api/address", AddressRoute);
 app.use("/api/cart", CartRoute);
+app.use("/api/order", OrderRoute);
 app.listen(port, () =>
   console.log(`Example app listening on port http://localhost:${port}`)
 );
