@@ -23,7 +23,6 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    // "Client", "Admin", "Vendor", "Driver"
     if (
       req.user.userType === "Client" ||
       req.user.userType === "Admin" ||

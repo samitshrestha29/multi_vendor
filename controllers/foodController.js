@@ -7,6 +7,7 @@ module.exports = {
     const {
       title,
       foodTags,
+      foodType,
       category,
       code,
       restaurant,
@@ -16,10 +17,12 @@ module.exports = {
       additives,
       imageUrl,
     } = req.body;
-
+    // console.log("Received body:", req.body);
+    // console.log("Food Tags:", req.body.foodTag);
     if (
       !title ||
       !foodTags ||
+      !foodType ||
       !category ||
       !code ||
       !restaurant ||
@@ -28,18 +31,25 @@ module.exports = {
       !price ||
       !additives ||
       !imageUrl
-    )
+    ) {
       return res
         .status(400)
         .json({ status: false, message: "you have missing field" });
+    }
+
+    const newFood = new Food(req.body);
+
+    // Log the Food model before saving
+    // console.log("Food model before save:", newFood);
 
     try {
-      const newFood = new Food(req.body);
       await newFood.save();
+      console.log("Food saved successfully");
       res
         .status(201)
-        .json({ status: true, message: "Food hs been successfully added" });
+        .json({ status: true, message: "Food has been successfully added" });
     } catch (error) {
+      console.error("Error saving food:", error);
       res.status(500).json({ status: false, message: error.message });
     }
   },
@@ -79,6 +89,16 @@ module.exports = {
       }
     } catch (error) {
       res.status(500).json(error);
+    }
+  },
+
+  getAllFoodByCode: async (req, res) => {
+    const code = req.params.code;
+    try {
+      const foodList = await Food.find({ code: code });
+      return res.status(200).json(foodList);
+    } catch (error) {
+      return res.status(500).json({ status: false, message: error.message });
     }
   },
 

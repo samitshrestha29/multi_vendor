@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const FoodSchema = new mongoose.Schema({
   title: { type: String, required: true },
   time: { type: String, required: true },
-  foodTag: { type: Array, required: true },
+  foodTags: [{ type: String, required: true }],
   category: { type: Array, required: true },
   foodType: { type: Array, required: true },
   code: { type: String, required: true },
@@ -13,7 +13,7 @@ const FoodSchema = new mongoose.Schema({
   ratingCount: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
-  additive: { type: Array, default: [] },
+  additives: { type: Array, default: [] },
   imageUrl: { type: Array, required: true },
 });
 

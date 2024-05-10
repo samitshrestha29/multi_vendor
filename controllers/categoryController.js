@@ -26,7 +26,7 @@ module.exports = {
   getRandomCategories: async (req, res) => {
     try {
       const categories = await Category.aggregate([
-        { $match: { title: { $ne: "More" } } },
+        { $match: { title: { $ne: "more" } } },
         { $sample: { size: 4 } },
       ]);
       const moreCategory = await Category.findOne(

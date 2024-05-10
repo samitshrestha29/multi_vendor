@@ -6,8 +6,9 @@ router.post("/", verifyVendor, foodController.addFood);
 
 router.get("/recommendation/:code", foodController.getRandomFood);
 
-router.get("/:id", foodController.getFoodById);
+router.get("/byCode/:code", foodController.getAllFoodByCode);
 
+router.get("/:id", foodController.getFoodById);
 router.get("/restaurant-foods/:id", foodController.getFoodByRestaurant);
 
 router.get("/search/:search", foodController.searchFoods);

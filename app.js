@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
@@ -28,8 +27,8 @@ mongoose
 // sendEmail("samitshrestha20@gmail.com", otp);
 
 app.get("/", (req, res) => res.send("Hello World!"));
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/", AuthRoute);
 app.use("/api/users", UserRoute);
 app.use("/api/category", CategoryRoute);
@@ -40,5 +39,5 @@ app.use("/api/address", AddressRoute);
 app.use("/api/cart", CartRoute);
 app.use("/api/order", OrderRoute);
 app.listen(port, () =>
-  console.log(`Example app listening on port http://localhost:${port}`)
+  console.log(`Example app listening on port 192.168.1.86:${port}`)
 );
