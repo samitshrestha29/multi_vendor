@@ -101,7 +101,7 @@ module.exports = {
           email: user.email,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "1d" } // Set expiration to 1 day
+        { expiresIn: "21d" } // Set expiration to 1 day
       );
 
       const { password, otp, address, createdAt, updatedAt, __v, ...others } =
